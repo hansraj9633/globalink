@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Global Ink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation Bar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50" x-data="{ mobileMenu: false, categoriesDropdown: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Global Ink</h1>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                            Categories <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50">
+                            <a href="international.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">International</a>
+                            <a href="national.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">National</a>
+                            <a href="sports.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sports</a>
+                            <a href="entertainment.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Entertainment</a>
+                            <a href="education.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Education</a>
+                            <a href="science.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Science</a>
+                            <a href="technology.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Technology</a>
+                            <a href="business.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Business</a>
+                            <a href="lifestyle.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Lifestyle</a>
+                            <a href="opinion.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Opinion</a>
+                        </div>
+                    </div>
+                    <a href="trending.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Trending</a>
+                    <a href="about-us.html" class="text-blue-600 dark:text-blue-400 font-semibold">About Us</a>
+                    <a href="fact-check.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Fact Check</a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex items-center">
+                    <div class="relative">
+                        <input type="text" placeholder="Search news..." class="w-64 px-4 py-2 pl-10 pr-4 text-sm bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-300 dark:placeholder-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle
+                <div class="hidden md:flex items-center">
+                    <button @click="darkMode = !darkMode" class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div> -->
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenu = !mobileMenu" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+                <a href="trending.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Trending</a>
+                <a href="about-us.html" class="block px-3 py-2 text-blue-600 dark:text-blue-400 font-semibold">About Us</a>
+                <a href="fact-check.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Fact Check</a>
+                
+                <!-- Mobile Search -->
+                <div class="px-3 py-2">
+                    <div class="relative">
+                        <input type="text" placeholder="Search news..." class="w-full px-4 py-2 pl-10 pr-4 text-sm bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-300 dark:placeholder-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-16">
+        <!-- Hero Section -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl font-bold mb-6">About Global Ink</h1>
+                <p class="text-xl opacity-90 max-w-3xl mx-auto">Your trusted source for comprehensive, accurate, and timely news coverage from around the world. We believe in the power of information to connect, educate, and inspire positive change.</p>
+            </div>
+        </div>
+
+        <!-- Our Story Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Our Story</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">Founded with a vision to bridge information gaps and bring the world closer together, Global Ink emerged from a simple yet powerful belief: that every individual deserves access to reliable, comprehensive news coverage that transcends borders and cultural barriers.</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">In today's interconnected world, staying informed is not just a preference—it's a necessity. Global Ink was born from the recognition that quality journalism has the power to shape perspectives, influence decisions, and drive positive societal change.</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">Our commitment goes beyond reporting the news; we strive to provide context, analysis, and diverse viewpoints that help our readers understand the complexities of our rapidly evolving world.</p>
+                </div>
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Global News Coverage" class="rounded-lg shadow-2xl">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent rounded-lg"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why Global Ink Section -->
+        <div class="bg-white dark:bg-gray-800 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Why Global Ink Matters</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">In an era of information overload and misinformation, Global Ink stands as a beacon of journalistic integrity and excellence.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-globe text-2xl text-blue-600 dark:text-blue-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Global Reach</h3>
+                        <p class="text-gray-600 dark:text-gray-300">With correspondents and partnerships across continents, we bring you stories from every corner of the globe, ensuring no important story goes untold.</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-balance-scale text-2xl text-green-600 dark:text-green-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Unbiased Reporting</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Our commitment to journalistic integrity means presenting facts without bias, allowing readers to form their own informed opinions.</p>
+                    </div>
+                    
+                    <div class="text-center p-6">
+                        <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-users text-2xl text-purple-600 dark:text-purple-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-3">Community Impact</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Beyond reporting, we actively engage with communities, amplify unheard voices, and contribute to meaningful dialogue and positive change.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Mission & Values -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Our Mission</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">To deliver accurate, comprehensive, and timely news coverage that empowers individuals to make informed decisions, fosters understanding across cultures, and promotes positive global dialogue.</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">We believe that access to reliable information is a fundamental human right, and we are committed to upholding the highest standards of journalistic excellence in everything we do.</p>
+                </div>
+                
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">Our Values</h2>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white">Integrity</h4>
+                                <p class="text-gray-600 dark:text-gray-300">We maintain the highest ethical standards in all our reporting and business practices.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white">Accuracy</h4>
+                                <p class="text-gray-600 dark:text-gray-300">Every story undergoes rigorous fact-checking and verification processes.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white">Diversity</h4>
+                                <p class="text-gray-600 dark:text-gray-300">We celebrate diverse perspectives and ensure inclusive representation in our coverage.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mr-4 mt-1">
+                                <i class="fas fa-check text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-900 dark:text-white">Innovation</h4>
+                                <p class="text-gray-600 dark:text-gray-300">We embrace new technologies and storytelling methods to better serve our audience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Member Section -->
+        <div class="bg-white dark:bg-gray-800 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Meet Our Founder</h2>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">The visionary behind Global Ink's mission to connect the world through quality journalism.</p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto">
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-8 shadow-lg">
+                        <div class="flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+                            <!-- Profile Image Placeholder -->
+                            <div class="w-48 h-48 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                                <i class="fas fa-user text-white text-6xl"></i>
+                                <!-- Replace the icon above with your actual image -->
+                                <!-- <img src="your-image.jpg" alt="Founder Name" class="w-full h-full object-cover rounded-full"> -->
+                            </div>
+                            
+                            <div class="flex-1 text-center md:text-left">
+                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">Hans Raj</h3>
+                                <p class="text-blue-600 dark:text-blue-400 font-semibold mb-4">Founder & Editor-in-Chief</p>
+                                
+                                <!-- Personal Bio Section -->
+                                <div class="bg-white dark:bg-gray-600 rounded-lg p-6 mb-6">
+                                    <h4 class="font-semibold text-gray-900 dark:text-white mb-3">About Me</h4>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                        Being a college student, I felt affected by the informations.So, I have started this platform to share the stories that matter. I aim to provide a space for diverse voices and perspectives.
+                                    </p>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">
+                                        My vision for Global Ink is to create a platform that not only informs but also inspires. I am committed to upholding the highest standards of journalism, ensuring that our content is accurate, fair, and engaging. Together, we can make a difference in the media landscape.
+                                    </p>
+                                    <!-- <p class="text-gray-600 dark:text-gray-300">
+                                        [You can also mention your expertise areas, awards, publications, or any other relevant achievements.]
+                                    </p> -->
+                                </div>
+                                
+                                <div class="flex flex-wrap gap-3 justify-center md:justify-start">
+                                    <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-sm">Journalism</span>
+                                    <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-sm">Global Affairs</span>
+                                    <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-3 py-1 rounded-full text-sm">Digital Media</span>
+                                    <span class="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-3 py-1 rounded-full text-sm">Content Strategy</span>
+                                </div>
+                                
+                                <!-- Contact Information -->
+                                <div class="mt-6 flex flex-col space-y-2">
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <i class="fas fa-envelope text-blue-600 dark:text-blue-400 mr-3"></i>
+                                        <span class="text-gray-600 dark:text-gray-300">globallink.official@gmail.com</span>
+                                    </div>
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <i class="fas fa-phone text-blue-600 dark:text-blue-400 mr-3"></i>
+                                        <span class="text-gray-600 dark:text-gray-300">+91 1234567890</span>
+                                    </div>
+                                    <div class="flex items-center justify-center md:justify-start">
+                                        <i class="fas fa-map-marker-alt text-blue-600 dark:text-blue-400 mr-3"></i>
+                                        <span class="text-gray-600 dark:text-gray-300">BIT Sindri, Dhanbad, Jharkhand</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Impact Statistics -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Global Ink's Impact</h2>
+                <p class="text-lg text-gray-600 dark:text-gray-300">Making a difference through quality journalism and comprehensive coverage.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">50M+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Monthly Readers</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">150+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Countries Reached</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-purple-600 dark:text-purple-400 mb-2">25K+</div>
+                    <div class="text-gray-600 dark:text-gray-300">Articles Published</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-orange-600 dark:text-orange-400 mb-2">98%</div>
+                    <div class="text-gray-600 dark:text-gray-300">Accuracy Rate</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl font-bold mb-4">Join Our Mission</h2>
+                <p class="text-xl opacity-90 mb-8 max-w-3xl mx-auto">Help us continue delivering quality journalism that connects, educates, and inspires positive change across the globe.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                        Explore Our News
+                    </a>
+                    <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-600 transition-colors">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Brand Column -->
+                <div class="col-span-1 lg:col-span-1">
+                    <h3 class="text-2xl font-bold mb-4">Global Ink</h3>
+                    <p class="text-gray-300 mb-6">Your trusted source for the latest news and current affairs from around the world.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Home</a></li>
+                        <li><a href="about-us.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Categories</a></li>
+                        <li><a href="trending.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Trending</a></li>
+                        <li><a href="fact-check.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Fact Check</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="international.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> International</a></li>
+                        <li><a href="national.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> National</a></li>
+                        <li><a href="technology.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Technology</a></li>
+                        <li><a href="business.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Business</a></li>
+                        <li><a href="entertainment.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Entertainment</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Stay Updated</h4>
+                    <p class="text-gray-300 mb-4">With the latest news and updates from Global Ink.</p>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-300 focus:outline-none focus:border-orange-500">
+                        <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-3 rounded-lg hover:bg-orange-700 transition-colors duration-300">Subscribe Now</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="border-t border-gray-600 my-12"></div>
+            
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 text-sm mb-4 md:mb-0">© 2025 Global Ink. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Cookie Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

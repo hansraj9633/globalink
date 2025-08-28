@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trending - Global Ink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Navigation Bar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50" x-data="{ mobileMenu: false, categoriesDropdown: false }">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-orange-600 dark:text-orange-400">Global Ink</h1>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Home</a>
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors flex items-center">
+                            Categories <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50">
+                            <a href="international.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">International</a>
+                            <a href="national.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">National</a>
+                            <a href="sports.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Sports</a>
+                            <a href="entertainment.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Entertainment</a>
+                            <a href="education.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Education</a>
+                            <a href="science.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Science</a>
+                            <a href="technology.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Technology</a>
+                            <a href="business.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Business</a>
+                            <a href="lifestyle.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Lifestyle</a>
+                            <a href="opinion.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Opinion</a>
+                        </div>
+                    </div>
+                    <a href="trending.html" class="text-blue-600 dark:text-blue-400 font-semibold">Trending</a>
+                    <a href="about-us.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</a>
+                    <a href="fact-check.html" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Fact Check</a>
+                </div>
+
+                <!-- Search Bar -->
+                <div class="hidden md:flex items-center">
+                    <div class="relative">
+                        <input type="text" placeholder="Search news..." class="w-64 px-4 py-2 pl-10 pr-4 text-sm bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-300 dark:placeholder-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dark Mode Toggle
+                <div class="hidden md:flex items-center">
+                    <button @click="darkMode = !darkMode" class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div> -->
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenu = !mobileMenu" class="text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Home</a>
+                <a href="trending.html" class="block px-3 py-2 text-blue-600 dark:text-blue-400 font-semibold">Trending</a>
+                <a href="about-us.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">About Us</a>
+                <a href="fact-check.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">Fact Check</a>
+                
+                <!-- Mobile Search -->
+                <div class="px-3 py-2">
+                    <div class="relative">
+                        <input type="text" placeholder="Search news..." class="w-full px-4 py-2 pl-10 pr-4 text-sm bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-gray-300 dark:placeholder-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-16">
+        <!-- Trending Header -->
+        <div class="bg-gradient-to-r from-red-500 to-pink-500 text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-fire text-3xl mr-3"></i>
+                    <h1 class="text-4xl font-bold">Trending Now</h1>
+                </div>
+                <p class="text-xl opacity-90">Stay updated with the most popular and viral stories of the moment</p>
+            </div>
+        </div>
+
+        <!-- Trending News Grid -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Trending Article 1 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Breaking News" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #1 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 2.5M views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded">Politics</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 2 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Major Political Breakthrough: New International Agreement Reached</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">A historic agreement between world leaders promises to reshape global trade relations and environmental policies for the next decade.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Viral on social media</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trending Article 2 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Tech Innovation" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #2 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 1.8M views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded">Technology</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 4 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Revolutionary AI Breakthrough: Computers Can Now Read Human Emotions</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Scientists develop groundbreaking AI technology that can accurately interpret human emotions through facial expressions and voice patterns.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Breaking news</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trending Article 3 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Sports Victory" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #3 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 1.2M views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded">Sports</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 6 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Underdog Team Makes Historic Championship Win</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Against all odds, the underdog team secures an unprecedented victory in the championship finals, creating one of the biggest sports upsets in history.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Viral moment</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trending Article 4 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Entertainment News" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #4 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 980K views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 px-2 py-1 rounded">Entertainment</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 8 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Blockbuster Movie Breaks Box Office Records Worldwide</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">The highly anticipated film surpasses all expectations, becoming the highest-grossing movie of the year in just its opening weekend.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Cultural phenomenon</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trending Article 5 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Health Discovery" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #5 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 750K views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 px-2 py-1 rounded">Health</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 12 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Revolutionary Medical Discovery: New Treatment for Chronic Diseases</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">Medical researchers announce breakthrough treatment that shows promising results in treating previously incurable chronic conditions.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Medical breakthrough</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Trending Article 6 -->
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Environmental News" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 bg-indigo-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            #6 Trending
+                        </div>
+                        <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-xs">
+                            <i class="fas fa-eye mr-1"></i> 620K views
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-2">
+                            <span class="bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200 px-2 py-1 rounded">Environment</span>
+                            <span class="ml-3"><i class="far fa-clock mr-1"></i> 16 hours ago</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3">Global Climate Summit: Nations Commit to Ambitious Carbon Reduction Goals</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">World leaders reach unprecedented agreement on climate action, setting aggressive targets for carbon neutrality by 2050.</p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                <i class="fas fa-fire text-red-500 mr-1"></i>
+                                <span>Climate action</span>
+                            </div>
+                            <a href="#" class="text-blue-600 dark:text-blue-400 hover:underline font-semibold">Read More</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Trending Stats -->
+            <div class="mt-16 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">Trending Statistics</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-red-500 mb-2">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">15M+</div>
+                        <div class="text-gray-600 dark:text-gray-300">Total Views</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-500 mb-2">
+                            <i class="fas fa-share-alt"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">2.3M</div>
+                        <div class="text-gray-600 dark:text-gray-300">Shares</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-500 mb-2">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">890K</div>
+                        <div class="text-gray-600 dark:text-gray-300">Comments</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-purple-500 mb-2">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="text-2xl font-bold text-gray-900 dark:text-white">5.7M</div>
+                        <div class="text-gray-600 dark:text-gray-300">Reactions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Brand Column -->
+                <div class="col-span-1 lg:col-span-1">
+                    <h3 class="text-2xl font-bold mb-4">Global Ink</h3>
+                    <p class="text-gray-300 mb-6">Your trusted source for the latest news and current affairs from around the world.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-orange-400 transition-colors">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Home</a></li>
+                        <li><a href="about-us.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Categories</a></li>
+                        <li><a href="trending.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Trending</a></li>
+                        <li><a href="fact-check.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Fact Check</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="international.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> International</a></li>
+                        <li><a href="national.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> National</a></li>
+                        <li><a href="technology.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Technology</a></li>
+                        <li><a href="business.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Business</a></li>
+                        <li><a href="entertainment.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Entertainment</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Stay Updated</h4>
+                    <p class="text-gray-300 mb-4">With the latest news and updates from Global Ink.</p>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-300 focus:outline-none focus:border-orange-500">
+                        <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-3 rounded-lg hover:bg-orange-700 transition-colors duration-300">Subscribe Now</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="border-t border-gray-600 my-12"></div>
+            
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 text-sm mb-4 md:mb-0">© 2025 Global Ink. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Cookie Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National News - Global Ink</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.13.0/dist/cdn.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-orange-50 dark:bg-gray-900 transition-colors duration-300" x-data="{ 
+    darkMode: false,
+    mobileMenu: false,
+    categoriesDropdown: false,
+    currentLanguage: 'English',
+    textSize: 'normal',
+    carouselIndex: 0,
+    time: new Date().toLocaleTimeString(),
+    date: new Date().toLocaleDateString()
+}">
+    <!-- Navigation Bar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-orange-600 dark:text-orange-400">Global Ink</h1>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Home</a>
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors flex items-center">
+                            Categories <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div x-show="open" @click.away="open = false" x-transition class="absolute top-full left-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-md shadow-lg py-2 z-50">
+                            <a href="international.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">International</a>
+                            <a href="national.html" class="block px-4 py-2 text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-gray-700 font-semibold">National</a>
+                            <a href="sports.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Sports</a>
+                            <a href="entertainment.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Entertainment</a>
+                            <a href="education.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Education</a>
+                            <a href="science.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Science</a>
+                            <a href="technology.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Technology</a>
+                            <a href="business.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Business</a>
+                            <a href="lifestyle.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Lifestyle</a>
+                            <a href="opinion.html" class="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-orange-50 dark:hover:bg-gray-700">Opinion</a>
+                        </div>
+                    </div>
+                    <a href="trending.html" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Trending</a>
+                    <a href="about-us.html" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">About Us</a>
+                    <a href="fact-check.html" class="text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">Fact Check</a>
+                </div>
+
+                <!-- Right side utilities -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- Current Time & Date -->
+                    <div x-data x-init="setInterval(() => time = new Date().toLocaleTimeString(), 1000); setInterval(() => date = new Date().toLocaleDateString(), 60000)">
+                        <div class="text-sm text-gray-600 dark:text-gray-300">
+                            <span x-text="time"></span><br>
+                            <span x-text="date"></span>
+                        </div>
+                    </div>
+                    
+                    <!-- Dark Mode Toggle
+                    <button @click="darkMode = !darkMode" class="p-2 text-gray-500 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button> -->
+                    
+                    <!-- Language Switcher -->
+                    <div class="relative" x-data="{ open: false }">
+                        <button @click="open = !open" 
+                                class="flex items-center space-x-1 hover:text-orange-600 dark:hover:text-orange-400 text-gray-600 dark:text-gray-300">
+                            <span x-text="currentLanguage"></span>
+                            <i class="fas fa-chevron-down text-xs"></i>
+                        </button>
+                        <div x-show="open" 
+                             @click.away="open = false"
+                             class="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+                            <div class="py-1">
+                                <a href="#" @click="currentLanguage = 'English'; open = false" class="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-gray-700">English</a>
+                                <!-- <a href="#" @click="currentLanguage = 'Hindi'; open = false" class="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-gray-700">Hindi</a>
+                                <a href="#" @click="currentLanguage = 'Spanish'; open = false" class="block px-4 py-2 hover:bg-orange-50 dark:hover:bg-gray-700">Spanish</a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button @click="mobileMenu = !mobileMenu" class="text-gray-500 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div x-show="mobileMenu" x-transition class="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400">Home</a>
+                <a href="national.html" class="block px-3 py-2 text-orange-600 dark:text-orange-400 font-semibold">National</a>
+                <a href="trending.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400">Trending</a>
+                <a href="about-us.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400">About Us</a>
+                <a href="fact-check.html" class="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400">Fact Check</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Bar Below Navigation -->
+    <div class="pt-20 pb-4 px-4 max-w-7xl mx-auto">
+        <div class="w-full relative">
+            <input type="text" placeholder="Search national news..." class="w-full px-6 py-4 pl-12 pr-4 text-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 dark:text-gray-300 dark:placeholder-gray-400 shadow-lg">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <i class="fas fa-search text-orange-400"></i>
+            </div>
+            <button class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg transition-colors">
+                Search
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pb-16">
+        <!-- Category Header -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-flag text-4xl mr-3"></i>
+                    <h1 class="text-4xl font-bold">National News</h1>
+                </div>
+                <p class="text-xl opacity-90">Latest news from across the country, politics, and national affairs</p>
+            </div>
+        </div>
+
+        <!-- News Grid Layout -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Main Content Column -->
+                <div class="lg:col-span-2">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">Latest National News</h2>
+                    <div class="space-y-6">
+                        <!-- News Article 1 -->
+                        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Infrastructure Bill" class="w-full h-48 md:h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 px-2 py-1 rounded text-sm">Politics</span>
+                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">5 hours ago</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">New Infrastructure Bill Passes in Parliament</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">The bill allocates $1.2 trillion for roads, bridges, and broadband infrastructure nationwide.</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-eye mr-1"></i> 42.1K views</span>
+                                        <a href="#" class="text-orange-600 dark:text-orange-400 hover:underline font-semibold">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- News Article 2 -->
+                        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Unemployment" class="w-full h-48 md:h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 px-2 py-1 rounded text-sm">Economy</span>
+                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">1 day ago</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Unemployment Rate Drops to 3.8%</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">The national unemployment rate has reached its lowest point in over 50 years.</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-eye mr-1"></i> 38.7K views</span>
+                                        <a href="#" class="text-orange-600 dark:text-orange-400 hover:underline font-semibold">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- News Article 3 -->
+                        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Education Reform" class="w-full h-48 md:h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 px-2 py-1 rounded text-sm">Education</span>
+                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">2 days ago</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Government Announces New Education Reforms</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">The reforms focus on increasing funding for public schools and teacher salaries.</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-eye mr-1"></i> 25.3K views</span>
+                                        <a href="#" class="text-orange-600 dark:text-orange-400 hover:underline font-semibold">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- News Article 4 -->
+                        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Healthcare" class="w-full h-48 md:h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded text-sm">Healthcare</span>
+                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">3 days ago</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">New Healthcare Policy Aims to Reduce Medical Costs</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">The government introduces comprehensive healthcare reforms to make medical services more affordable.</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-eye mr-1"></i> 19.8K views</span>
+                                        <a href="#" class="text-orange-600 dark:text-orange-400 hover:underline font-semibold">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- News Article 5 -->
+                        <article class="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                            <div class="md:flex">
+                                <div class="md:w-1/3">
+                                    <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Technology" class="w-full h-48 md:h-full object-cover">
+                                </div>
+                                <div class="p-6 md:w-2/3">
+                                    <div class="flex items-center mb-3">
+                                        <span class="bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 px-2 py-1 rounded text-sm">Technology</span>
+                                        <span class="ml-3 text-sm text-gray-500 dark:text-gray-400">4 days ago</span>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Digital Infrastructure Plan to Connect Rural Areas</h3>
+                                    <p class="text-gray-600 dark:text-gray-300 mb-4">National initiative to provide high-speed internet access to underserved communities nationwide.</p>
+                                    <div class="flex items-center justify-between">
+                                        <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fas fa-eye mr-1"></i> 16.4K views</span>
+                                        <a href="#" class="text-orange-600 dark:text-orange-400 hover:underline font-semibold">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="lg:col-span-1">
+                    <div class="space-y-6">
+                        <!-- Popular National Articles -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Popular National News</h3>
+                            <div class="space-y-4">
+                                <div class="flex space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Politics" class="w-16 h-16 object-cover rounded">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Major Political Alliance Announced</h4>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">1 day ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Economy" class="w-16 h-16 object-cover rounded">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Economic Growth Exceeds Expectations</h4>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">3 days ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-3">
+                                    <img src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=100&q=80" alt="Education" class="w-16 h-16 object-cover rounded">
+                                    <div>
+                                        <h4 class="font-semibold text-gray-900 dark:text-white text-sm hover:text-orange-600 dark:hover:text-orange-400 cursor-pointer">Student Loan Reform Bill Introduced</h4>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">5 days ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regional News -->
+                        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">Regional News</h3>
+                            <div class="space-y-2">
+                                <a href="#" class="block text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 py-2 border-b border-gray-200 dark:border-gray-700">North Region</a>
+                                <a href="#" class="block text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 py-2 border-b border-gray-200 dark:border-gray-700">South Region</a>
+                                <a href="#" class="block text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 py-2 border-b border-gray-200 dark:border-gray-700">East Region</a>
+                                <a href="#" class="block text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 py-2 border-b border-gray-200 dark:border-gray-700">West Region</a>
+                                <a href="#" class="block text-gray-700 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400 py-2">Central Region</a>
+                            </div>
+                        </div>
+
+                        <!-- Newsletter Signup
+                        <div class="bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg shadow-lg p-6 text-white">
+                            <h3 class="text-lg font-bold mb-3">Stay Updated</h3>
+                            <p class="text-sm mb-4 opacity-90">Get the latest national news delivered to your inbox</p>
+                            <form class="space-y-3">
+                                <input type="email" placeholder="Your email address" class="w-full px-4 py-2 rounded text-gray-900 placeholder-gray-600">
+                                <button type="submit" class="w-full bg-white text-blue-600 font-semibold py-2 rounded hover:bg-gray-100 transition-colors">
+                                    Subscribe
+                                </button>
+                            </form>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8 mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Brand Column -->
+                <div class="col-span-1 lg:col-span-1">
+                    <h3 class="text-2xl font-bold mb-4">Global Ink</h3>
+                    <p class="text-gray-300 mb-6">Your trusted source for the latest news and current affairs from around the world.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon text-white text-xl hover:text-[#F97A00]">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-[#F97A00]">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-[#F97A00]">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-[#F97A00]">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon text-white text-xl hover:text-[#F97A00]">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Home</a></li>
+                        <li><a href="about-us.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> About Us</a></li>
+                        <li><a href="#" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Categories</a></li>
+                        <li><a href="trending.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Trending</a></li>
+                        <li><a href="fact-check.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Fact Check</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Categories -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Categories</h4>
+                    <ul class="space-y-3">
+                        <li><a href="international.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> International</a></li>
+                        <li><a href="national.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> National</a></li>
+                        <li><a href="technology.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Technology</a></li>
+                        <li><a href="business.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Business</a></li>
+                        <li><a href="entertainment.html" class="footer-link text-gray-300 hover:text-white flex items-center"><i class="fas fa-chevron-right text-xs mr-2 text-orange-400"></i> Entertainment</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Newsletter -->
+                <div>
+                    <h4 class="text-lg font-semibold mb-6 border-b border-orange-500 pb-2">Stay Updated</h4>
+                    <p class="text-gray-300 mb-4">With the latest news and updates from Global Ink.</p>
+                    <form class="space-y-4">
+                        <input type="email" placeholder="Your email address" class="w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white placeholder-gray-300 focus:outline-none focus:border-orange-500">
+                        <button type="submit" class="w-full bg-orange-600 text-white font-semibold py-3 rounded-lg hover:bg-orange-700 transition-colors duration-300">Subscribe Now</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Divider -->
+            <div class="border-t border-gray-600 my-12"></div>
+            
+            <!-- Bottom Footer -->
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-300 text-sm mb-4 md:mb-0">© 2025 Global Ink. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Privacy Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Terms of Service</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Cookie Policy</a>
+                    <a href="#" class="text-gray-300 hover:text-white text-sm">Contact Us</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back to Top Button -->
+        <button id="backToTopBtn" class="back-to-top fixed bottom-6 right-6 bg-[#F97A00] text-white p-3 rounded-full shadow-lg hover:bg-[#e56e00]">
+            <i class="fas fa-arrow-up"></i>
+        </button>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
